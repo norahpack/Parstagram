@@ -36,13 +36,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
-    Button btnLogout;
+    private Button btnLogout;
     private EditText etDescription;
     private Button btnPicture;
     private Button btnSubmit;
     private ImageView ivPicture;
     private File photoFile;
     public String photoFileName="photo.jpg";
+    private Button btnFeed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
         btnPicture=findViewById(R.id.btnPicture);
         btnSubmit=findViewById(R.id.btnSubmit);
         ivPicture=findViewById(R.id.ivPicture);
+        btnFeed=findViewById(R.id.btnFeed);
+
+        btnFeed.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, FeedActivity.class);
+                startActivity(i);
+            }
+        });
 
         btnPicture.setOnClickListener(new View.OnClickListener(){
             @Override
