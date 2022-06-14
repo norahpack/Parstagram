@@ -17,6 +17,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
@@ -28,6 +29,8 @@ public class FeedActivity extends AppCompatActivity {
     protected List<Post> allPosts;
     private Button btnFeed;
     private Button btnLogout;
+    private LinearLayoutManager llm;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +79,25 @@ public class FeedActivity extends AppCompatActivity {
         // initialize the array that will hold posts and create a PostsAdapter
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(this, allPosts);
-
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
+        llm = new LinearLayoutManager(this);
+        rvPosts.setLayoutManager(llm);
         // query posts from Parstagram
-        queryPosts();
+        queryPosts(new Date());
+
+        scrollListener = new EndlessRecyclerViewScrollListener(llm) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                Post lastPostBeingDisplayed=allPosts.get(allPosts.size()-1);
+                Date createdAt=lastPostBeingDisplayed.getCreatedAt();
+                queryPosts(createdAt);
+            }
+        };
+
+        rvPosts.addOnScrollListener(scrollListener);
+
     }
 
     public void fetchTimelineAsync(int page) {
@@ -90,18 +105,20 @@ public class FeedActivity extends AppCompatActivity {
         // `client` here is an instance of Android Async HTTP
         // getHomeTimeline is an example endpoint.
         adapter.clear();
-        queryPosts();
+        queryPosts(new Date());
         adapter.notifyDataSetChanged();
         swipeContainer.setRefreshing(false);
     }
 
-    private void queryPosts() {
+    private void queryPosts(Date createdAt) {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
+
+        query.whereLessThan("createdAt", createdAt);
         // limit query to latest 20 items
-        query.setLimit(20);
+        query.setLimit(3);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
@@ -122,6 +139,9 @@ public class FeedActivity extends AppCompatActivity {
                 // save received posts to list and notify adapter of new data
                 adapter.addAll(posts);
                 adapter.notifyDataSetChanged();
+
+                System.out.println(allPosts.size());
+                System.out.println(adapter.getItemCount());
             }
         });
     }
