@@ -9,7 +9,7 @@ Time spent: **6** hours spent in total
 The following **required** functionality is completed:
 
 - [X] User sees app icon in home screen.
-- [ ] User can sign up to create a new account using Parse authentication
+- [X] User can sign up to create a new account using Parse authentication
 - [X] User can log in to their account
 - [X] The current signed in user is persisted across app restarts
 - [X] User can log out of their account
@@ -27,7 +27,7 @@ The following **stretch** features are implemented:
   - [ ] Feed Tab (to view all posts from all users)
   - [ ] Capture Tab (to make a new post using the Camera and Photo Gallery)
   - [ ] Profile Tab (to view only the current user's posts, in a grid)
-- [ ] Show the username and creation time for each post
+- [X] Show the username and creation time for each post
 - User Profiles:
   - [ ] Allow the logged in user to add a profile photo
   - [ ] Display the profile photo with each post
