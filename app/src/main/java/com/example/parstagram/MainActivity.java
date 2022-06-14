@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private File photoFile;
     public String photoFileName="photo.jpg";
     private Button btnFeed;
+    private ProgressBar pbLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         btnPicture=findViewById(R.id.btnPicture);
         btnSubmit=findViewById(R.id.btnSubmit);
         ivPicture=findViewById(R.id.ivPicture);
+        pbLoading=findViewById(R.id.pbLoading);
 
 
         btnPicture.setOnClickListener(new View.OnClickListener(){
@@ -171,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
+        pbLoading.setVisibility(ProgressBar.VISIBLE);
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -181,23 +185,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "Post save was successful!");
                 etDescription.setText("");
                 ivPicture.setImageResource(0);
-            }
-        });
-    }
-
-    private void queryPosts(){
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null){
-                    Log.e(TAG, "Issue with getting posts", e);
-                    return;
-                }
-                for (Post post : posts){
-                    Log.i(TAG, "Post: "+post.getDescription()+", username: "+post.getUser().getUsername());
-                }
+                pbLoading.setVisibility(ProgressBar.INVISIBLE);
+                Intent i = new Intent(MainActivity.this, FeedActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }

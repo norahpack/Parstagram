@@ -1,17 +1,25 @@
 package com.example.parstagram;
 
+
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.parse.ParseFile;
 import org.parceler.Parcels;
 
@@ -59,25 +67,53 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvUsername;
         private ImageView ivImage;
         private TextView tvDescription;
+        private ProgressBar pbLoading;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername=itemView.findViewById(R.id.tvUsername);
             ivImage=itemView.findViewById(R.id.ivImage);
             tvDescription=itemView.findViewById(R.id.tvDescription);
+            pbLoading=itemView.findViewById(R.id.pbLoading);
             itemView.setOnClickListener(this);
+            pbLoading.setVisibility(ProgressBar.VISIBLE);
+
+
         }
 
-        public void bind(Post post){
+        public void bind(Post post) {
+
+
             //Bind the post data to the view elements
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             if (image != null){
-                Glide.with(context).load(image.getUrl()).into(ivImage);
+                Glide.with(context).load(image.getUrl()).listener(new RequestListener<Drawable>() {
+                            @Override
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                pbLoading.setVisibility(ProgressBar.INVISIBLE);
+                                ivImage.setVisibility(ImageView.VISIBLE);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                pbLoading.setVisibility(ProgressBar.INVISIBLE);
+                                ivImage.setVisibility(ImageView.VISIBLE);
+                                return false;
+                            }
+                        }).into(ivImage);
+                System.out.println(tvDescription.getText().toString());
+
             } else {
+
                 Glide.with(context).load(R.drawable.icon).into(ivImage);
+                pbLoading.setVisibility(ProgressBar.INVISIBLE);
+
             }
+
+
         }
 
         @Override

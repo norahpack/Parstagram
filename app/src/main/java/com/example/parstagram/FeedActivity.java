@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -114,6 +115,9 @@ public class FeedActivity extends AppCompatActivity {
 
     private void queryPosts(){
 
+        ProgressBar pb = (ProgressBar) findViewById(R.id.pbMainLoading);
+        pb.setVisibility(ProgressBar.VISIBLE);
+
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
@@ -144,6 +148,8 @@ public class FeedActivity extends AppCompatActivity {
 
             }
         });
+        pb.setVisibility(ProgressBar.INVISIBLE);
+
     }
 
 
