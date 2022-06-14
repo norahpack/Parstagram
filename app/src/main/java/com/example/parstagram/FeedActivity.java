@@ -16,6 +16,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,7 +86,8 @@ public class FeedActivity extends AppCompatActivity {
         llm = new LinearLayoutManager(this);
         rvPosts.setLayoutManager(llm);
         // query posts from Parstagram
-        queryPosts(new Date());
+        queryPosts();
+
 
         scrollListener = new EndlessRecyclerViewScrollListener(llm) {
             @Override
@@ -105,20 +107,20 @@ public class FeedActivity extends AppCompatActivity {
         // `client` here is an instance of Android Async HTTP
         // getHomeTimeline is an example endpoint.
         adapter.clear();
-        queryPosts(new Date());
+        queryPosts();
         adapter.notifyDataSetChanged();
         swipeContainer.setRefreshing(false);
     }
 
-    private void queryPosts(Date createdAt) {
+    private void queryPosts(){
+
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
 
-        query.whereLessThan("createdAt", createdAt);
         // limit query to latest 20 items
-        query.setLimit(3);
+        query.setLimit(20);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
@@ -140,8 +142,42 @@ public class FeedActivity extends AppCompatActivity {
                 adapter.addAll(posts);
                 adapter.notifyDataSetChanged();
 
-                System.out.println(allPosts.size());
-                System.out.println(adapter.getItemCount());
+            }
+        });
+    }
+
+
+
+    private void queryPosts(Date createdAt) {
+        // specify what type of data we want to query - Post.class
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        // include data referred by user key
+        query.include(Post.KEY_USER);
+
+        query.whereLessThan("createdAt", createdAt);
+        // limit query to latest 20 items
+        query.setLimit(5);
+        // order posts by creation date (newest first)
+        query.addDescendingOrder("createdAt");
+        // start an asynchronous call for posts
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                // check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting posts", e);
+                    return;
+                }
+
+                // for debugging purposes let's print every post description to logcat
+                for (Post post : posts) {
+                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
+                }
+
+                // save received posts to list and notify adapter of new data
+                adapter.addAll(posts);
+                adapter.notifyDataSetChanged();
+
             }
         });
     }
