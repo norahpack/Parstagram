@@ -49,20 +49,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnLogout=findViewById(R.id.btnLogout);
         etDescription=findViewById(R.id.etDescription);
         btnPicture=findViewById(R.id.btnPicture);
         btnSubmit=findViewById(R.id.btnSubmit);
         ivPicture=findViewById(R.id.ivPicture);
-        btnFeed=findViewById(R.id.btnFeed);
 
-        btnFeed.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, FeedActivity.class);
-                startActivity(i);
-            }
-        });
 
         btnPicture.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -88,16 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 savePost(description, currentUser, photoFile);
             }
         });
-        btnLogout.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
-            }
-        });
     }
 
     private void launchCamera() {

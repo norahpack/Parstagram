@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
         etUsername=findViewById(R.id.etUsername);
         etPassword=findViewById(R.id.etPassword);
         btnLogin=findViewById(R.id.btnLogin);
+
+
         btnLogin.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -65,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goMainActivity(){
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, FeedActivity.class);
         startActivity(i);
         finish();
 
