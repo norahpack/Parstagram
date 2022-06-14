@@ -162,7 +162,7 @@ public class FeedActivity extends AppCompatActivity {
 
         query.whereLessThan("createdAt", createdAt);
         // limit query to latest 20 items
-        query.setLimit(5);
+        query.setLimit(20);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
