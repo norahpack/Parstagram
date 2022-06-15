@@ -33,8 +33,8 @@ public class PostDetails extends AppCompatActivity {
     TextView tvLikes;
     Button btnLikes;
     int likes;
-    boolean liked = false;
     Drawable likeBackground;
+    boolean liked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +65,11 @@ public class PostDetails extends AppCompatActivity {
                     } else {
                         newBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart_active);
                         liked = true;
+                        System.out.println(liked);
                         change_likes=1;
                     }
                     post.setLikes(post.getLikes()+change_likes);
+                    post.setLiked(liked);
                     tvLikes.setText(String.valueOf(post.getLikes()));
                 try {
                     post.save();
@@ -84,7 +86,6 @@ public class PostDetails extends AppCompatActivity {
     public void bind(Post post){
         Date createdAt = post.getCreatedAt();
         String timeAgo = Post.calculateTimeAgo(createdAt);
-        //post.setLikes(1);
         likes=post.getLikes();
         post.saveInBackground();
         tvLikes.setText(String.valueOf(likes));
@@ -96,6 +97,8 @@ public class PostDetails extends AppCompatActivity {
             Glide.with(this).load(image.getUrl()).into(ivImage);
         }
 
+
+        liked=post.getLiked();
         if(liked) {
             likeBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart_active);
         } else {
@@ -103,6 +106,12 @@ public class PostDetails extends AppCompatActivity {
 
         }
         btnLikes.setBackground(likeBackground);
+    }
+
+    public void back(View view){
+        Intent i = new Intent(PostDetails.this, FeedActivity.class);
+        startActivity(i);
+        finish();
     }
 
 

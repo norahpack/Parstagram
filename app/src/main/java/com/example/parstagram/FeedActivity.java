@@ -33,12 +33,17 @@ public class FeedActivity extends AppCompatActivity {
     private Button btnLogout;
     private LinearLayoutManager llm;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private ProgressBar pb;
+    private boolean unlikeAll=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("got here");
+        unlikeAll=true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         rvPosts=findViewById(R.id.rvPosts);
+        pb=findViewById(R.id.pbMainLoading);
 
         btnFeed=findViewById(R.id.btnPost);
         btnLogout=findViewById(R.id.btnLogout);
@@ -115,7 +120,6 @@ public class FeedActivity extends AppCompatActivity {
 
     private void queryPosts(){
 
-        ProgressBar pb = (ProgressBar) findViewById(R.id.pbMainLoading);
         pb.setVisibility(ProgressBar.VISIBLE);
 
         // specify what type of data we want to query - Post.class
@@ -138,8 +142,12 @@ public class FeedActivity extends AppCompatActivity {
                 }
 
                 // for debugging purposes let's print every post description to logcat
-                for (Post post : posts) {
-                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
+                if(unlikeAll==true){
+                    System.out.println("unliking all");
+                    for (Post post : posts) {
+                        post.setLiked(false);
+                }
+                    unlikeAll=false;
                 }
 
                 // save received posts to list and notify adapter of new data
