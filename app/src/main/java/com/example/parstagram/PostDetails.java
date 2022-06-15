@@ -78,8 +78,6 @@ public class PostDetails extends AppCompatActivity {
         Post post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
 
         JSONArray postLikedBy = post.getLikedBy();
-        System.out.println("here");
-        System.out.println(postLikedBy);
 
         if(postLikedBy!=null){
             for(int i = 0; i < postLikedBy.length(); i++){
@@ -107,8 +105,6 @@ public class PostDetails extends AppCompatActivity {
 
         // query posts from Parstagram
         queryComments((ParseObject) post);
-
-        System.out.println(post.getUser().getUsername());
 
 
         btnComment.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +164,6 @@ public class PostDetails extends AppCompatActivity {
                 }
 
                 // save received posts to list and notify adapter of new data
-                System.out.println(comments);
                 adapter.addAll(comments);
                 adapter.notifyDataSetChanged();
 
@@ -203,7 +198,13 @@ public class PostDetails extends AppCompatActivity {
         Date createdAt = post.getCreatedAt();
         String timeAgo = Post.calculateTimeAgo(createdAt);
         post.saveInBackground();
-        tvLikes.setText(String.valueOf(post.getLikedBy().length()));
+        JSONArray postLikedBy = post.getLikedBy();
+
+        if(postLikedBy!=null){
+            tvLikes.setText(String.valueOf(post.getLikedBy().length()));
+        } else {
+            tvLikes.setText("0");
+        }
         tvCreatedAt.setText(timeAgo);
         tvUsername.setText(post.getUser().getUsername());
         tvDescription.setText(post.getDescription());

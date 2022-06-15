@@ -104,7 +104,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                                 return false;
                             }
                         }).into(ivImage);
-                System.out.println(tvDescription.getText().toString());
 
             } else {
 
@@ -118,7 +117,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         @Override
         public void onClick(View view){
-            System.out.println("onClick");
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION){
                 Post post = posts.get(position);
