@@ -34,11 +34,9 @@ public class FeedActivity extends AppCompatActivity {
     private LinearLayoutManager llm;
     private EndlessRecyclerViewScrollListener scrollListener;
     private ProgressBar pb;
-    private boolean unlikeAll=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        unlikeAll=true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         rvPosts=findViewById(R.id.rvPosts);
@@ -140,14 +138,7 @@ public class FeedActivity extends AppCompatActivity {
                     return;
                 }
 
-                // for debugging purposes let's print every post description to logcat
-                if(unlikeAll==true){
-                    System.out.println("unliking all");
-                    for (Post post : posts) {
-                        post.setLiked(false);
-                }
-                    unlikeAll=false;
-                }
+
 
                 // save received posts to list and notify adapter of new data
                 adapter.addAll(posts);

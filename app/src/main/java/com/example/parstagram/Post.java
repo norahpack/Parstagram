@@ -2,14 +2,20 @@ package com.example.parstagram;
 
 import android.util.Log;
 
+import com.parse.FindCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
 import org.parceler.Parcel;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
@@ -17,8 +23,7 @@ public class Post extends ParseObject {
     public static final String KEY_DESCRIPTION="description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
-    public static final String KEY_LIKES = "likes";
-    public static final String KEY_LIKED ="liked";
+    public static final String KEY_LIKED_BY="likedBy";
 
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
@@ -44,15 +49,11 @@ public class Post extends ParseObject {
         put(KEY_USER, user);
     }
 
-    public int getLikes() { return getInt(KEY_LIKES);}
 
-    public void setLikes(Number likes) { put (KEY_LIKES, likes);}
+    public JSONArray getLikedBy(){return getJSONArray(KEY_LIKED_BY);}
 
-    public boolean getLiked() {return getBoolean(KEY_LIKED);}
+    public void setLikedBy(ParseUser user){add("likedBy", user.getObjectId());}
 
-    public void setLiked(boolean liked) {
-        put (KEY_LIKED, liked);
-    }
 
 
     public static String calculateTimeAgo(Date createdAt) {

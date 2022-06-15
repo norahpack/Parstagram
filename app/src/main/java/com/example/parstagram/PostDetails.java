@@ -26,6 +26,9 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
@@ -43,7 +46,6 @@ public class PostDetails extends AppCompatActivity {
     ImageView ivImage;
     TextView tvLikes;
     Button btnLikes;
-    int likes;
     Drawable likeBackground;
     boolean liked;
     Button btnComment;
@@ -71,8 +73,29 @@ public class PostDetails extends AppCompatActivity {
         rvComments=findViewById(R.id.rvComments);
 
 
+
+        liked = false;
         Post post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
+
+        JSONArray postLikedBy = post.getLikedBy();
+        System.out.println("here");
+        System.out.println(postLikedBy);
+
+        if(postLikedBy!=null){
+            for(int i = 0; i < postLikedBy.length(); i++){
+                try {
+                    String userVal = postLikedBy.getString(i);
+                    if(userVal.equals(ParseUser.getCurrentUser().getObjectId())){
+                        liked=true;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
         this.bind(post);
+
 
         allComments = new ArrayList<>();
         adapter = new CommentsAdapter(PostDetails.this, allComments);
@@ -102,26 +125,20 @@ public class PostDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                     Drawable newBackground;
-                    int change_likes;
 
                     if (liked){
-                        newBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart);
-                        liked = false;
-                        change_likes=-1;
+                        newBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart_active);
                     } else {
                         newBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart_active);
                         liked = true;
-                        System.out.println(liked);
-                        change_likes=1;
+                        post.setLikedBy(ParseUser.getCurrentUser());
                     }
-                    post.setLikes(post.getLikes()+change_likes);
-                    post.setLiked(liked);
-                    tvLikes.setText(String.valueOf(post.getLikes()));
                 try {
                     post.save();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                tvLikes.setText(String.valueOf(post.getLikedBy().length()));
                 btnLikes.setBackground(newBackground);
             }
         });
@@ -185,9 +202,8 @@ public class PostDetails extends AppCompatActivity {
     public void bind(Post post){
         Date createdAt = post.getCreatedAt();
         String timeAgo = Post.calculateTimeAgo(createdAt);
-        likes=post.getLikes();
         post.saveInBackground();
-        tvLikes.setText(String.valueOf(likes));
+        tvLikes.setText(String.valueOf(post.getLikedBy().length()));
         tvCreatedAt.setText(timeAgo);
         tvUsername.setText(post.getUser().getUsername());
         tvDescription.setText(post.getDescription());
@@ -196,8 +212,6 @@ public class PostDetails extends AppCompatActivity {
             Glide.with(this).load(image.getUrl()).into(ivImage);
         }
 
-
-        liked=post.getLiked();
         if(liked) {
             likeBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart_active);
         } else {
