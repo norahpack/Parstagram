@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,11 +18,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.util.Date;
 
 public class PostDetails extends AppCompatActivity {
@@ -35,6 +39,10 @@ public class PostDetails extends AppCompatActivity {
     int likes;
     Drawable likeBackground;
     boolean liked;
+    Button btnComment;
+    EditText etComment;
+    public static final String TAG = "PostDetails";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +55,22 @@ public class PostDetails extends AppCompatActivity {
         ivImage=findViewById(R.id.ivImage);
         tvLikes=findViewById(R.id.tvLikes);
         btnLikes=findViewById(R.id.btnLikes);
+        btnComment=findViewById(R.id.btnComment);
+        etComment=findViewById(R.id.etComment);
 
 
         Post post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
         this.bind(post);
+
+        btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String commentText = etComment.getText().toString();
+                ParseUser currentUser = ParseUser.getCurrentUser();
+
+                addComment(commentText,  (ParseObject) post, currentUser);
+            }
+        });
 
         btnLikes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +103,24 @@ public class PostDetails extends AppCompatActivity {
 
     }
 
+    private void addComment(String commentText, ParseObject post, ParseUser currentUser) {
+        Comment comment = new Comment();
+        comment.setCommenter(currentUser);
+        comment.setPostParent(post);
+        comment.setText(commentText);
+        comment.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Error while saving", e);
+                    Toast.makeText(PostDetails.this, "Error while saving", Toast.LENGTH_SHORT).show();
+                }
+                Log.i(TAG, "Comment save was successful!");
+                etComment.setText("");
+            }
+        });
+    }
+
     public void bind(Post post){
         Date createdAt = post.getCreatedAt();
         String timeAgo = Post.calculateTimeAgo(createdAt);
@@ -113,6 +151,8 @@ public class PostDetails extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+
 
 
 
