@@ -11,12 +11,22 @@
     android:minHeight="65dp">
 
 
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/innerConstraint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/innerConstraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="5dp"
         android:background="@drawable/slight_rounded_corners"
         android:backgroundTint="#FFFFFF"
@@ -73,9 +83,28 @@
             android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvLikes"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="trying to look hipster" />
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="Comments"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvLikes"
@@ -98,20 +127,30 @@
             app:layout_constraintTop_toBottomOf="@+id/ivImage"
             app:srcCompat="@drawable/ufi_heart" />
 
+        <Button
+            android:id="@+id/btnComment"
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvLikes"
+            app:layout_constraintStart_toStartOf="@+id/ivImage"
+            app:layout_constraintTop_toBottomOf="@+id/ivImage"
+            app:srcCompat="@drawable/ufi_comment" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvComment" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/innerConstraint"
-        app:srcCompat="@drawable/icon" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
