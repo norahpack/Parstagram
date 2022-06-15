@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.parse.FindCallback;
@@ -31,6 +32,7 @@ public class FeedActivity extends AppCompatActivity {
     protected List<Post> allPosts;
     private Button btnFeed;
     private Button btnLogout;
+    private ImageButton btnProfilePic;
     private LinearLayoutManager llm;
     private EndlessRecyclerViewScrollListener scrollListener;
     private ProgressBar pb;
@@ -44,6 +46,14 @@ public class FeedActivity extends AppCompatActivity {
 
         btnFeed=findViewById(R.id.btnPost);
         btnLogout=findViewById(R.id.btnLogout);
+        btnProfilePic=findViewById(R.id.btnProfilePic);
+
+        btnProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
         btnFeed.setOnClickListener(new View.OnClickListener(){
