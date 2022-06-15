@@ -38,7 +38,6 @@ public class FeedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("got here");
         unlikeAll=true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
