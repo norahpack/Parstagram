@@ -7,6 +7,9 @@
     <color name="yellow">#FEDA75</color>
     <color name="orange">#FA7E1E</color>
     <color name="pink">#D62976</color>
+    <color name="pastelOrange">#FFC292</color>
+    <color name="pastelPink">#FFA4B4</color>
+    <color name="pastelPurple">#EFC5FF</color>
 
 
 </resources>

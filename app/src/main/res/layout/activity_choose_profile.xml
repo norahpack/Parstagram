@@ -4,19 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_pastel"
+    android:outlineProvider="paddedBounds"
     tools:context=".ChooseProfile">
 
     <RadioGroup
         android:id="@+id/choiceList"
-        android:layout_width="0dp"
+        android:layout_width="140dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:background="@drawable/slight_rounded_corners"
+        android:backgroundTint="@color/white"
         android:checkedButton="@id/rbIcon"
         android:contextClickable="false"
-        android:dividerPadding="0dp"
-        android:showDividers="middle"
-        app:barrierMargin="0dp"
+        android:divider="?android:attr/listDivider"
+        android:showDividers="middle|beginning|end"
         app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,18 +31,17 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="0dp"
             android:layout_weight="1"
-            android:buttonTint="#1A99C4"
+            android:buttonTint="@color/pink"
             android:contextClickable="false"
             android:drawableLeft="@mipmap/ic_icon_foreground"
-            android:foregroundGravity="right"
-            />
+            android:foregroundGravity="right" />
 
         <RadioButton
             android:id="@+id/rbDog"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:buttonTint="#1A99C4"
+            android:buttonTint="@color/pink"
             android:drawableLeft="@drawable/ic_dog"
             android:tag="R.drawable.ic_dog" />
 
@@ -48,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:buttonTint="#1A99C4"
+            android:buttonTint="@color/pink"
             android:drawableStart="@drawable/ic_yellow_tiger_cat2"
             android:tag="R.drawable.ic_yellow_tiger_cat2" />
 
@@ -57,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:buttonTint="#1A99C4"
+            android:buttonTint="@color/pink"
             android:drawableLeft="@drawable/ic_burger"
             android:tag="R.drawable.ic_burger" />
 
@@ -66,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:buttonTint="#1A99C4"
+            android:buttonTint="@color/pink"
             android:drawableLeft="@drawable/ic_basketball"
             android:tag="R.drawable.ic_basketball" />
 
@@ -78,6 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="11dp"
+        android:background="@drawable/slight_rounded_corners"
         android:text="Set Profile Picture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
