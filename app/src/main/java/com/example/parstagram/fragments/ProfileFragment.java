@@ -7,51 +7,55 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.parstagram.ChooseProfile;
+import com.example.parstagram.EndlessRecyclerViewScrollListener;
+import com.example.parstagram.GridAdapter;
 import com.example.parstagram.LoginActivity;
+import com.example.parstagram.Post;
+import com.example.parstagram.PostsAdapter;
 import com.example.parstagram.R;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private TextView tvUsername;
     private ImageButton btnProfilePic;
     private Button btnLogOut;
+    private RecyclerView rvPosts;
+    protected GridAdapter adapter;
+    protected List<Post> personPosts;
+    //private EndlessRecyclerViewScrollListener scrollListener;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
@@ -83,6 +87,7 @@ public class ProfileFragment extends Fragment {
         tvUsername=view.findViewById(R.id.tvUsername);
         btnProfilePic=view.findViewById(R.id.btnProfilePic);
         btnLogOut=view.findViewById(R.id.btnLogOut);
+        rvPosts=view.findViewById(R.id.rvPosts);
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser.get("profilePic")!=null){
             btnProfilePic.setBackground(AppCompatResources.getDrawable(getContext(), (Integer) currentUser.get("profilePic")));
@@ -97,7 +102,6 @@ public class ProfileFragment extends Fragment {
         });
 
         btnLogOut.setOnClickListener(new View.OnClickListener(){
-
             @Override public void onClick(View v) {
                 ParseUser.logOut();
                 ParseUser currentUser = ParseUser.getCurrentUser();
@@ -105,6 +109,42 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
+        final GridLayoutManager layout = new GridLayoutManager(getContext(), 3);
+        personPosts = new ArrayList<>();
+        adapter = new GridAdapter(getContext(), personPosts);
+        // set the adapter on the recycler view
+        rvPosts.setAdapter(adapter);
+        // set the layout manager on the recycler view
+        rvPosts.setLayoutManager(layout);
+        // query posts from Parstagram
+        queryGrid();
 
+    }
+
+    private void queryGrid(){
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        // specify what type of data we want to query - Post.class
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        // include data referred by user key
+        query.include(Post.KEY_USER);
+        query.whereEqualTo(Post.KEY_USER, currentUser);
+        // limit query to latest 20 items
+        query.setLimit(20);
+        // order posts by creation date (newest first)
+        query.addDescendingOrder("createdAt");
+        // start an asynchronous call for posts
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                // check for errors
+                if (e != null) {
+                    return;
+                }
+                // save received posts to list and notify adapter of new data
+                adapter.addAll(posts);
+                adapter.notifyDataSetChanged();
+
+            }
+        });
     }
 }
