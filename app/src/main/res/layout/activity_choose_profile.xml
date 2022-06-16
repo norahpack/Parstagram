@@ -12,6 +12,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:checkedButton="@id/rbIcon"
+        android:contextClickable="false"
         android:dividerPadding="0dp"
         android:showDividers="middle"
         app:barrierMargin="0dp"
@@ -27,6 +29,7 @@
             android:layout_marginLeft="0dp"
             android:layout_weight="1"
             android:buttonTint="#1A99C4"
+            android:contextClickable="false"
             android:drawableLeft="@mipmap/ic_icon_foreground"
             android:foregroundGravity="right" />
 
