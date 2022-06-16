@@ -24,6 +24,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import java.util.Date;
 import java.util.List;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
@@ -84,6 +85,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             //Bind the post data to the view elements
             tvText.setText(comment.getText());
             tvUser.setText(comment.getCommenter().getUsername());
+            Date createdAt = comment.getCreatedAt();
+            String timeAgo = Comment.calculateTimeAgo(createdAt);
+            tvTime.setText(timeAgo);
+
         }
     }
 }
