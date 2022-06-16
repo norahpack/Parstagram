@@ -1,6 +1,7 @@
 package com.example.parstagram;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -47,6 +48,10 @@ public class FeedActivity extends AppCompatActivity {
         btnFeed=findViewById(R.id.btnPost);
         btnLogout=findViewById(R.id.btnLogout);
         btnProfilePic=findViewById(R.id.btnProfilePic);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser.get("profilePic")!=null){
+            btnProfilePic.setBackground(AppCompatResources.getDrawable(FeedActivity.this, (Integer) currentUser.get("profilePic")));
+        }
 
         btnProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -29,6 +29,10 @@ public class ChooseProfile extends AppCompatActivity {
     Button btnUpdate;
     RadioButton finalChoice;
     RadioButton rbIcon;
+    RadioButton rbCat;
+    RadioButton rbDog;
+    RadioButton rbBurger;
+    RadioButton rbBasketball;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,18 @@ public class ChooseProfile extends AppCompatActivity {
 
         rbIcon=findViewById(R.id.rbIcon);
         rbIcon.setTag(R.drawable.icon);
+
+        rbCat=findViewById(R.id.rbCat);
+        rbCat.setTag(R.drawable.ic_yellow_tiger_cat2);
+
+        rbDog=findViewById(R.id.rbDog);
+        rbDog.setTag(R.drawable.ic_dog);
+
+        rbBurger=findViewById(R.id.rbBurger);
+        rbBurger.setTag(R.drawable.ic_burger);
+
+        rbBasketball=findViewById(R.id.rbBasketball);
+        rbBasketball.setTag(R.drawable.ic_basketball);
 
         choiceList=findViewById(R.id.choiceList);
         btnUpdate=findViewById(R.id.btnUpdate);
