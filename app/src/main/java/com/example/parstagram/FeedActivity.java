@@ -51,7 +51,8 @@ public class FeedActivity extends AppCompatActivity {
         btnProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(FeedActivity.this, ChooseProfile.class);
+                startActivity(i);
             }
         });
 
