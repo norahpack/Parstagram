@@ -31,7 +31,8 @@
             android:buttonTint="#1A99C4"
             android:contextClickable="false"
             android:drawableLeft="@mipmap/ic_icon_foreground"
-            android:foregroundGravity="right" />
+            android:foregroundGravity="right"
+            />
 
         <RadioButton
             android:id="@+id/rbDog"
@@ -39,7 +40,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:buttonTint="#1A99C4"
-            android:drawableLeft="@drawable/ic_dog" />
+            android:drawableLeft="@drawable/ic_dog"
+            android:tag="R.drawable.ic_dog" />
 
         <RadioButton
             android:id="@+id/rbCat"
@@ -47,7 +49,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:buttonTint="#1A99C4"
-            android:drawableStart="@drawable/ic_yellow_tiger_cat2" />
+            android:drawableStart="@drawable/ic_yellow_tiger_cat2"
+            android:tag="R.drawable.ic_yellow_tiger_cat2" />
 
         <RadioButton
             android:id="@+id/rbBurger"
@@ -55,15 +58,17 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:buttonTint="#1A99C4"
-            android:drawableLeft="@drawable/ic_burger" />
+            android:drawableLeft="@drawable/ic_burger"
+            android:tag="R.drawable.ic_burger" />
 
         <RadioButton
-            android:id="@+id/rbFish"
+            android:id="@+id/rbBasketball"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:buttonTint="#1A99C4"
-            android:drawableLeft="@drawable/ic_basketball" />
+            android:drawableLeft="@drawable/ic_basketball"
+            android:tag="R.drawable.ic_basketball" />
 
 
     </RadioGroup>

@@ -28,11 +28,16 @@ public class ChooseProfile extends AppCompatActivity {
     RadioGroup choiceList;
     Button btnUpdate;
     RadioButton finalChoice;
+    RadioButton rbIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_profile);
+
+        rbIcon=findViewById(R.id.rbIcon);
+        rbIcon.setTag(R.drawable.icon);
+
         choiceList=findViewById(R.id.choiceList);
         btnUpdate=findViewById(R.id.btnUpdate);
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -40,12 +45,12 @@ public class ChooseProfile extends AppCompatActivity {
             public void onClick(View v) {
                 int idChecked = choiceList.getCheckedRadioButtonId();
                 finalChoice=findViewById(idChecked);
-                //Drawable choiceImage=finalChoice.getButtonDrawable();
-                //Drawable choiceImage= AppCompatResources.getDrawable(ChooseProfile.this, R.drawable.ufi_heart_active);
-                String choiceImage = "ufi_heart_active";
+                System.out.println(finalChoice);
+                System.out.println(finalChoice.getTag());
+                //int choiceImage = (int) finalChoice.getTag();
                 ParseUser currentUser = ParseUser.getCurrentUser();
 
-                currentUser.put("profilePic", choiceImage);
+                //currentUser.put("profilePic", choiceImage);
 
                 currentUser.saveInBackground(new SaveCallback() {
                     @Override
