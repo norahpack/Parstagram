@@ -11,24 +11,14 @@
     android:minHeight="65dp">
 
 
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/innerConstraint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/innerConstraint"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/slight_rounded_corners"
         android:backgroundTint="#FFFFFF"
         android:minHeight="65dp"
@@ -157,6 +147,18 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/slight_rounded_corners"
+        android:text="Back"
+        android:onClick="back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
