@@ -123,7 +123,27 @@ public class PostDetails extends AppCompatActivity {
                     Drawable newBackground;
 
                     if (liked){
-                        newBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart_active);
+                        newBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart);
+                        liked=false;
+
+                        JSONArray postLikedBy = post.getLikedBy();
+                        JSONArray newArray = new JSONArray();
+
+                        if(postLikedBy!=null){
+                            for(int i = 0; i < postLikedBy.length(); i++){
+                                try {
+                                    String userVal = postLikedBy.getString(i);
+                                    if(!userVal.equals(ParseUser.getCurrentUser().getObjectId())){
+                                        newArray.put(postLikedBy.get(i));
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+                        post.put("likedBy", newArray);
+
                     } else {
                         newBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart_active);
                         liked = true;

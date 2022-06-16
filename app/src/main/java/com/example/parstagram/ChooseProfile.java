@@ -47,10 +47,10 @@ public class ChooseProfile extends AppCompatActivity {
                 finalChoice=findViewById(idChecked);
                 System.out.println(finalChoice);
                 System.out.println(finalChoice.getTag());
-                //int choiceImage = (int) finalChoice.getTag();
+                int choiceImage = (int) finalChoice.getTag();
                 ParseUser currentUser = ParseUser.getCurrentUser();
 
-                //currentUser.put("profilePic", choiceImage);
+                currentUser.put("profilePic", choiceImage);
 
                 currentUser.saveInBackground(new SaveCallback() {
                     @Override
