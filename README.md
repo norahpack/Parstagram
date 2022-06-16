@@ -29,7 +29,7 @@ The following **stretch** features are implemented:
   - [ ] Profile Tab (to view only the current user's posts, in a grid)
 - [X] Show the username and creation time for each post
 - User Profiles:
-  - [ ] Allow the logged in user to add a profile photo
+  - [X] Allow the logged in user to choose a profile photo 
   - [ ] Display the profile photo with each post
   - [ ] Tapping on a post's username or profile photo goes to that user's profile page
   - [ ] User Profile shows posts in a grid
@@ -42,6 +42,8 @@ The following **additional** features are implemented:
 - [X] App backgrounds include a custom gradient
 - [X] Upon opening the app, a "splash screen" appears temporarily
 - [X] App remembers which users have liked which posts inbetween sessions and persists this data after user logout / login
+- [X] Users can "unlike" posts
+- [X] User comments display timestamps of when the comment was posted
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
