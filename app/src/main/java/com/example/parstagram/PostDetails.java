@@ -51,6 +51,7 @@ public class PostDetails extends AppCompatActivity {
     Button btnComment;
     EditText etComment;
     RecyclerView rvComments;
+    ImageView ivProfile;
     protected List<Comment> allComments;
     private LinearLayoutManager llm;
     public static final String TAG = "PostDetails";
@@ -71,6 +72,7 @@ public class PostDetails extends AppCompatActivity {
         btnComment=findViewById(R.id.btnComment);
         etComment=findViewById(R.id.etComment);
         rvComments=findViewById(R.id.rvComments);
+        ivProfile=findViewById(R.id.ivProfile);
 
 
 
@@ -78,6 +80,11 @@ public class PostDetails extends AppCompatActivity {
         Post post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
 
         JSONArray postLikedBy = post.getLikedBy();
+
+        ParseUser currentUser = post.getUser();
+        if(currentUser.get("profilePic")!=null){
+            ivProfile.setBackground(AppCompatResources.getDrawable(PostDetails.this, (Integer) currentUser.get("profilePic")));
+        }
 
         if(postLikedBy!=null){
             for(int i = 0; i < postLikedBy.length(); i++){

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +22,8 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
+
 import org.parceler.Parcels;
 
 import java.util.List;
@@ -68,6 +71,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivImage;
         private TextView tvDescription;
         private ProgressBar pbLoading;
+        private ImageView ivProfile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,11 +81,21 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             pbLoading=itemView.findViewById(R.id.pbLoading);
             itemView.setOnClickListener(this);
             pbLoading.setVisibility(ProgressBar.VISIBLE);
+            ivProfile=itemView.findViewById(R.id.ivProfile);
 
 
         }
 
         public void bind(Post post) {
+
+            ParseUser currentUser = post.getUser();
+            System.out.println(currentUser.get("profilePic"));
+            if(currentUser.get("profilePic")!=null){
+                System.out.println("GOT HERE");
+                ivProfile.setBackground(AppCompatResources.getDrawable(context, (Integer) currentUser.get("profilePic")));
+            } else {
+                ivProfile.setBackground(AppCompatResources.getDrawable(context, R.drawable.icon));
+            }
 
 
             //Bind the post data to the view elements

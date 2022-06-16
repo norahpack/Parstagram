@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -88,6 +89,14 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             Date createdAt = comment.getCreatedAt();
             String timeAgo = Comment.calculateTimeAgo(createdAt);
             tvTime.setText(timeAgo);
+            ParseUser currentUser = comment.getCommenter();
+            System.out.println(currentUser.get("profilePic"));
+            if(currentUser.get("profilePic")!=null){
+                System.out.println("GOT HERE");
+                ivProfile.setBackground(AppCompatResources.getDrawable(context, (Integer) currentUser.get("profilePic")));
+            } else {
+                ivProfile.setBackground(AppCompatResources.getDrawable(context, R.drawable.icon));
+            }
 
         }
     }
