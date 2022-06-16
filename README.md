@@ -30,7 +30,7 @@ The following **stretch** features are implemented:
 - [X] Show the username and creation time for each post
 - User Profiles:
   - [X] Allow the logged in user to choose a profile photo 
-  - [ ] Display the profile photo with each post
+  - [X] Display the profile photo with each post
   - [ ] Tapping on a post's username or profile photo goes to that user's profile page
   - [ ] User Profile shows posts in a grid
 - [X] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
@@ -47,7 +47,7 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
+1. I would like to discuss working with arrays in Parse. My individual app is going to rely a lot on having a solid grasp on that functionality, and I don't quite yet have a great understanding on how to modify Parse arrays, especially removing specific rows of the arrays.
 2.
 
 ## Video Walkthrough
