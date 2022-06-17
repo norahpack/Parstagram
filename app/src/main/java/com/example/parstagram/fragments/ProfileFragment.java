@@ -91,6 +91,9 @@ public class ProfileFragment extends Fragment {
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser.get("profilePic")!=null){
             btnProfilePic.setBackground(AppCompatResources.getDrawable(getContext(), (Integer) currentUser.get("profilePic")));
+        } else {
+            btnProfilePic.setBackground(AppCompatResources.getDrawable(getContext(), (R.drawable.icon)));
+
         }
         tvUsername.setText(currentUser.getUsername());
 
@@ -128,8 +131,6 @@ public class ProfileFragment extends Fragment {
         // include data referred by user key
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_USER, currentUser);
-        // limit query to latest 20 items
-        query.setLimit(20);
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts

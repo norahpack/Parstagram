@@ -21,5 +21,11 @@
         <item name="colorAccent">@color/orange</item>
         <item name="android:statusBarColor">@color/pink</item>
     </style>
-    
+    <style name="Theme.Parstagram.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Parstagram.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Parstagram.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

@@ -82,8 +82,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             itemView.setOnClickListener(this);
             pbLoading.setVisibility(ProgressBar.VISIBLE);
             ivProfile=itemView.findViewById(R.id.ivProfile);
-
-
         }
 
         public void bind(Post post) {

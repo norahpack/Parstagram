@@ -3,21 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@drawable/bg_gradient_pastel"
-    android:orientation="vertical"
-    tools:context=".fragments.ProfileFragment">
+
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
 
     <Button
-        android:id="@+id/btnLogOut"
+        android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="17dp"
         android:background="@drawable/slight_rounded_corners"
-        android:text="Log out"
+        android:text="Back"
+        android:onClick="back"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clInner"

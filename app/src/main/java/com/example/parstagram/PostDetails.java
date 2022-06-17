@@ -113,6 +113,28 @@ public class PostDetails extends AppCompatActivity {
         // query posts from Parstagram
         queryComments((ParseObject) post);
 
+        ivProfile.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PostDetails.this, ProfileActivity.class);
+                i.putExtra(ParseUser.class.getSimpleName(), Parcels.wrap(post.getUser()));
+                i.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+
+                startActivity(i);
+            }
+        });
+
+        tvUsername.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PostDetails.this, ProfileActivity.class);
+                i.putExtra(ParseUser.class.getSimpleName(), Parcels.wrap(post.getUser()));
+                i.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+
+                startActivity(i);
+            }
+        });
 
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,9 +276,4 @@ public class PostDetails extends AppCompatActivity {
         startActivity(i);
         finish();
     }
-
-
-
-
-
 }

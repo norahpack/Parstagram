@@ -81,7 +81,6 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.VH> {
             super(itemView);
             ivPost = itemView.findViewById(R.id.ivPost);
             this.context=context;
-
         }
 
         public void bind(Post post) {

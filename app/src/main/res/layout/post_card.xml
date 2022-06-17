@@ -19,8 +19,8 @@
         <ImageView
             android:id="@+id/ivPost"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_height="165dp"
+            android:scaleType="centerCrop"
             tools:srcCompat="@drawable/icon" />
     </LinearLayout>
 
