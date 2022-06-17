@@ -10,7 +10,7 @@
 
     <RadioGroup
         android:id="@+id/choiceList"
-        android:layout_width="140dp"
+        android:layout_width="150dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
@@ -33,44 +33,45 @@
             android:layout_weight="1"
             android:buttonTint="@color/pink"
             android:contextClickable="false"
-            android:drawableLeft="@mipmap/ic_icon_foreground"
-            android:foregroundGravity="right" />
+            android:drawableLeft="@drawable/instagramtwosmall"
+            android:tag="R.drawable.instagramtwo"/>
 
         <RadioButton
-            android:id="@+id/rbDog"
+            android:id="@+id/rbSpace"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:buttonTint="@color/pink"
-            android:drawableLeft="@drawable/ic_dog"
-            android:tag="R.drawable.ic_dog" />
+            android:drawableLeft="@drawable/spacesmall"
+            android:tag="R.drawable.spaced" />
 
         <RadioButton
-            android:id="@+id/rbCat"
+            android:id="@+id/rbGreen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:buttonTint="@color/pink"
-            android:drawableStart="@drawable/ic_yellow_tiger_cat2"
-            android:tag="R.drawable.ic_yellow_tiger_cat2" />
+            android:drawableLeft="@drawable/greensmalltwo"
+            android:scaleType="centerInside"
+            android:tag="R.drawable.green" />
 
         <RadioButton
-            android:id="@+id/rbBurger"
+            android:id="@+id/rbSunflower"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:buttonTint="@color/pink"
-            android:drawableLeft="@drawable/ic_burger"
-            android:tag="R.drawable.ic_burger" />
+            android:drawableLeft="@drawable/sunflowersmall"
+            android:tag="R.drawable.sunflower" />
 
         <RadioButton
-            android:id="@+id/rbBasketball"
+            android:id="@+id/rbClouds"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:buttonTint="@color/pink"
-            android:drawableLeft="@drawable/ic_basketball"
-            android:tag="R.drawable.ic_basketball" />
+            android:drawableLeft="@drawable/cloudssmall"
+            android:tag="R.drawable.clouds" />
 
 
     </RadioGroup>

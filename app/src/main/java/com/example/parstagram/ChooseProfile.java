@@ -29,10 +29,10 @@ public class ChooseProfile extends AppCompatActivity {
     Button btnUpdate;
     RadioButton finalChoice;
     RadioButton rbIcon;
-    RadioButton rbCat;
-    RadioButton rbDog;
-    RadioButton rbBurger;
-    RadioButton rbBasketball;
+    RadioButton rbSpace;
+    RadioButton rbGreen;
+    RadioButton rbSunflower;
+    RadioButton rbClouds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +40,19 @@ public class ChooseProfile extends AppCompatActivity {
         setContentView(R.layout.activity_choose_profile);
 
         rbIcon=findViewById(R.id.rbIcon);
-        rbIcon.setTag(R.drawable.icon);
+        rbIcon.setTag(R.drawable.instagramtwo);
 
-        rbCat=findViewById(R.id.rbCat);
-        rbCat.setTag(R.drawable.ic_yellow_tiger_cat2);
+        rbSpace=findViewById(R.id.rbSpace);
+        rbSpace.setTag(R.drawable.spaced);
 
-        rbDog=findViewById(R.id.rbDog);
-        rbDog.setTag(R.drawable.ic_dog);
+        rbGreen=findViewById(R.id.rbGreen);
+        rbGreen.setTag(R.drawable.green);
 
-        rbBurger=findViewById(R.id.rbBurger);
-        rbBurger.setTag(R.drawable.ic_burger);
+        rbSunflower=findViewById(R.id.rbSunflower);
+        rbSunflower.setTag(R.drawable.sunflower);
 
-        rbBasketball=findViewById(R.id.rbBasketball);
-        rbBasketball.setTag(R.drawable.ic_basketball);
+        rbClouds=findViewById(R.id.rbClouds);
+        rbClouds.setTag(R.drawable.clouds);
 
         choiceList=findViewById(R.id.choiceList);
         btnUpdate=findViewById(R.id.btnUpdate);

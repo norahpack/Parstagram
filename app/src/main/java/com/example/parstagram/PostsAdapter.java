@@ -92,7 +92,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 System.out.println("GOT HERE");
                 ivProfile.setBackground(AppCompatResources.getDrawable(context, (Integer) currentUser.get("profilePic")));
             } else {
-                ivProfile.setBackground(AppCompatResources.getDrawable(context, R.drawable.icon));
+                ivProfile.setBackground(AppCompatResources.getDrawable(context, R.drawable.instagramtwo));
             }
 
 

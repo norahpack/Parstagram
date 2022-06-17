@@ -15,12 +15,12 @@
         <entry key="app/src/main/res/drawable/rounded_corners.xml" value="0.107" />
         <entry key="app/src/main/res/drawable/slight_rounded_corners.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_choose_profile.xml" value="0.18691101074218752" />
+        <entry key="app/src/main/res/layout/activity_choose_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_feed.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23756713867187498" />
         <entry key="app/src/main/res/layout/activity_post_details.xml" value="0.3111931119311193" />
-        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.32919464111328134" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />

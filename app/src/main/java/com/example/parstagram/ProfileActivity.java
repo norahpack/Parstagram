@@ -53,7 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
         if(user.get("profilePic")!=null){
             btnProfilePic.setBackground(AppCompatResources.getDrawable(ProfileActivity.this, (Integer) user.get("profilePic")));
         } else {
-            btnProfilePic.setBackground(AppCompatResources.getDrawable(ProfileActivity.this, R.drawable.icon));
+            btnProfilePic.setBackground(AppCompatResources.getDrawable(ProfileActivity.this, R.drawable.instagramtwo));
         }
 
         final GridLayoutManager layout = new GridLayoutManager(ProfileActivity.this, 3);

@@ -58,7 +58,6 @@ public class FeedActivity extends AppCompatActivity {
                     case R.id.itemPost:
                         fragment = new ComposeFragment();
                         break;
-
                     case R.id.itemProfile:
                         //change this
                         fragment = new ProfileFragment();

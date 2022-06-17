@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment {
         if(currentUser.get("profilePic")!=null){
             btnProfilePic.setBackground(AppCompatResources.getDrawable(getContext(), (Integer) currentUser.get("profilePic")));
         } else {
-            btnProfilePic.setBackground(AppCompatResources.getDrawable(getContext(), (R.drawable.icon)));
+            btnProfilePic.setBackground(AppCompatResources.getDrawable(getContext(), (R.drawable.instagramtwo)));
 
         }
         tvUsername.setText(currentUser.getUsername());
