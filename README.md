@@ -2,7 +2,7 @@
 
 **Parstagram** is a photo sharing app using Parse as its backend.
 
-Time spent: **18** hours spent in total
+Time spent: **21** hours spent in total
 
 ## User Stories
 
@@ -44,17 +44,18 @@ The following **additional** features are implemented:
 - [X] App remembers which users have liked which posts inbetween sessions and persists this data after user logout / login
 - [X] Users can "unlike" posts
 - [X] User comments display timestamps of when the comment was posted
+- [X] Completing actions in one fragment can prompt another fragment to open
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. I would like to discuss working with arrays in Parse. My individual app is going to rely a lot on having a solid grasp on that functionality, and I don't quite yet have a great understanding on how to modify Parse arrays, especially removing specific rows of the arrays.
-2.
+2. I don't feel comfortable yet with the different type of image files (Bitmap, Drawable, etc) and how they are used
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='instagram4gif.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [Kap](https://getkap.co/).
 
