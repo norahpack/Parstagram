@@ -237,6 +237,10 @@ public class ComposeFragment extends Fragment {
                 etDescription.setText("");
                 ivPicture.setImageResource(0);
                 pbLoading.setVisibility(ProgressBar.INVISIBLE);
+
+
+                FeedActivity.self.setTab(new HomeFragment());
+
                 //Intent i = new Intent(getContext(), FeedActivity.class);
                 //startActivity(i);
                 //getContext().finish();

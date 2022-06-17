@@ -74,6 +74,7 @@ public class ChooseProfile extends AppCompatActivity {
                         if (e != null){
                         }
                         Intent i = new Intent(ChooseProfile.this, FeedActivity.class);
+                        i.putExtra("goTo", "profile");
                         startActivity(i);
                         finish();
                     }

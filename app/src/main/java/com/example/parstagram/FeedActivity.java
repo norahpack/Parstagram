@@ -34,13 +34,15 @@ import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
 
+    public static FeedActivity self;
     public static final String TAG = "FeedActivity";
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
-    private BottomNavigationView bottomNavigation;
+    protected BottomNavigationView bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        self=this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         bottomNavigation = findViewById(R.id.bottomNavigation);
@@ -71,7 +73,17 @@ public class FeedActivity extends AppCompatActivity {
                 return true;
             }
         });
-        //set the default selection
-        bottomNavigation.setSelectedItemId(R.id.itemHome);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras!=null){
+            bottomNavigation.setSelectedItemId(R.id.itemProfile);
+        } else {
+            bottomNavigation.setSelectedItemId(R.id.itemHome);
+        }
     }
+
+    public void setTab(Fragment fragment){
+        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+    }
+
 }
