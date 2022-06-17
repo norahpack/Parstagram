@@ -33,7 +33,7 @@
             android:buttonTint="@color/pink"
             android:contextClickable="false"
             android:drawableLeft="@drawable/instagramtwosmall"
-            android:tag="R.drawable.instagramtwo"/>
+            android:tag="R.drawable.instagramtwo" />
 
         <RadioButton
             android:id="@+id/rbSpace"
