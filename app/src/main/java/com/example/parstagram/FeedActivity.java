@@ -34,10 +34,10 @@ import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
 
-    public static FeedActivity self;
     public static final String TAG = "FeedActivity";
-    final FragmentManager fragmentManager = getSupportFragmentManager();
 
+    public static FeedActivity self;
+    final FragmentManager fragmentManager = getSupportFragmentManager();
     protected BottomNavigationView bottomNavigation;
 
     @Override
@@ -47,9 +47,7 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
         bottomNavigation = findViewById(R.id.bottomNavigation);
 
-
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment;
@@ -65,7 +63,6 @@ public class FeedActivity extends AppCompatActivity {
                         fragment = new ProfileFragment();
                         break;
                     default:
-                        //maybe change this?
                         fragment = new HomeFragment();
                         break;
                 }
@@ -74,6 +71,7 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
 
+        //Checking if we came from the ChooseProfile class
         Bundle extras = getIntent().getExtras();
         if (extras!=null){
             bottomNavigation.setSelectedItemId(R.id.itemProfile);
@@ -82,8 +80,8 @@ public class FeedActivity extends AppCompatActivity {
         }
     }
 
-    public void setTab(Fragment fragment){
+    public void setTab(Fragment fragment, int selectedItem){
         fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+        bottomNavigation.setSelectedItemId(selectedItem);
     }
-
 }

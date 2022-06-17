@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
         btnSignup=findViewById(R.id.btnSignup);
 
         btnSignup.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "onClick signup button");
@@ -47,34 +46,27 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         btnLogin.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "onClick login button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 loginUser(username, password);
-
             }
         });
     }
 
     private void loginUser(String username, String password){
-        Log.i(TAG, "Attempting to login user " + username);
-        //Todo: navigate to the main activity if the user has signed in properly.
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e != null){
-                    Log.e(TAG, "Issue with login", e);
                     Toast.makeText(LoginActivity.this, "Issue with login!", Toast.LENGTH_SHORT);
-
                     return;
                 }
                 goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT);
+                Toast.makeText(LoginActivity.this, "Logged in!", Toast.LENGTH_SHORT);
             }
         });
     }
@@ -83,6 +75,5 @@ public class LoginActivity extends AppCompatActivity {
         Intent i = new Intent(this, FeedActivity.class);
         startActivity(i);
         finish();
-
     }
 }

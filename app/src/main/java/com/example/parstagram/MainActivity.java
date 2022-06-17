@@ -37,14 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
-    private Button btnLogout;
     private EditText etDescription;
     private Button btnPicture;
     private Button btnSubmit;
     private ImageView ivPicture;
     private File photoFile;
     public String photoFileName="photo.jpg";
-    private Button btnFeed;
     private ProgressBar pbLoading;
 
     @Override
@@ -57,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         ivPicture=findViewById(R.id.ivPicture);
         pbLoading=findViewById(R.id.pbLoading);
 
-
         btnPicture.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -65,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //queryPosts();
         btnSubmit.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 String description = etDescription.getText().toString();
@@ -82,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 savePost(description, currentUser, photoFile);
             }
         });
-
     }
 
     private void launchCamera() {
@@ -107,13 +101,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                // RESIZE BITMAP, see section below
 
                 // by this point we have the camera photo on disk
                 Bitmap rawTakenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                // See BitmapScaler.java: https://gist.github.com/nesquena/3885707fd3773c09f1bb
                 Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(rawTakenImage, 1000);
-                // Load the taken image into a preview
 
                 // Configure byte output stream
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -146,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
 
                 ivPicture.setImageBitmap(resizedBitmap);
 
-
-            } else { // Result was a failure
+            } else {
+                // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
@@ -179,10 +170,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void done(ParseException e) {
                 if (e != null){
-                    Log.e(TAG, "Error while saving", e);
                     Toast.makeText(MainActivity.this, "Error while saving", Toast.LENGTH_SHORT).show();
                 }
-                Log.i(TAG, "Post save was successful!");
                 etDescription.setText("");
                 ivPicture.setImageResource(0);
                 pbLoading.setVisibility(ProgressBar.INVISIBLE);
@@ -192,5 +181,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }

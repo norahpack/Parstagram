@@ -54,8 +54,6 @@ public class Post extends ParseObject {
 
     public void setLikedBy(ParseUser user){add("likedBy", user.getObjectId());}
 
-
-
     public static String calculateTimeAgo(Date createdAt) {
 
         int SECOND_MILLIS = 1000;
@@ -85,10 +83,8 @@ public class Post extends ParseObject {
                 return diff / DAY_MILLIS + " d";
             }
         } catch (Exception e) {
-            Log.i("Error:", "getRelativeTimeAgo failed", e);
             e.printStackTrace();
         }
-
         return "";
     }
 }

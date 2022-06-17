@@ -38,10 +38,8 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
 
     private String mParam1;
     private String mParam2;
@@ -51,7 +49,6 @@ public class ProfileFragment extends Fragment {
     private RecyclerView rvPosts;
     protected GridAdapter adapter;
     protected List<Post> personPosts;
-    //private EndlessRecyclerViewScrollListener scrollListener;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -76,8 +73,7 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
@@ -90,12 +86,14 @@ public class ProfileFragment extends Fragment {
         btnLogOut=view.findViewById(R.id.btnLogOut);
         rvPosts=view.findViewById(R.id.rvPosts);
         ParseUser currentUser = ParseUser.getCurrentUser();
+
         if(currentUser.get("profilePic")!=null){
             btnProfilePic.setBackground(AppCompatResources.getDrawable(getContext(), (Integer) currentUser.get("profilePic")));
         } else {
             btnProfilePic.setBackground(AppCompatResources.getDrawable(getContext(), (R.drawable.instagramtwo)));
 
         }
+
         tvUsername.setText(currentUser.getUsername());
 
         btnProfilePic.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +111,7 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
+
         final GridLayoutManager layout = new GridLayoutManager(getContext(), 3);
         personPosts = new ArrayList<>();
         adapter = new GridAdapter(getContext(), personPosts);
@@ -120,32 +119,31 @@ public class ProfileFragment extends Fragment {
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
         rvPosts.setLayoutManager(layout);
-        // query posts from Parstagram
         queryGrid();
 
     }
 
     private void queryGrid(){
         ParseUser currentUser = ParseUser.getCurrentUser();
+
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+
         // include data referred by user key
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_USER, currentUser);
-        // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
+
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
-                // check for errors
                 if (e != null) {
                     return;
                 }
                 // save received posts to list and notify adapter of new data
                 adapter.addAll(posts);
                 adapter.notifyDataSetChanged();
-
             }
         });
     }

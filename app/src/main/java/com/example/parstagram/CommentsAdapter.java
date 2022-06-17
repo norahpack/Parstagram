@@ -41,7 +41,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(context).inflate(R.layout.item_comment, parent, false);
         return new CommentsAdapter.ViewHolder(view);
     }
@@ -90,14 +89,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             String timeAgo = Comment.calculateTimeAgo(createdAt);
             tvTime.setText(timeAgo);
             ParseUser currentUser = comment.getCommenter();
-            System.out.println(currentUser.get("profilePic"));
             if(currentUser.get("profilePic")!=null){
-                System.out.println("GOT HERE");
                 ivProfile.setBackground(AppCompatResources.getDrawable(context, (Integer) currentUser.get("profilePic")));
             } else {
                 ivProfile.setBackground(AppCompatResources.getDrawable(context, R.drawable.icon));
             }
-
         }
     }
 }

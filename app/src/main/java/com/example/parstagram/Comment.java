@@ -10,6 +10,7 @@ import java.util.Date;
 
 @ParseClassName("Comment")
 public class Comment extends ParseObject {
+
     public static final String KEY_POST_PARENT="postParent";
     public static final String KEY_TEXT = "text";
     public static final String KEY_COMMENTER = "commenter";
@@ -66,8 +67,6 @@ public class Comment extends ParseObject {
             Log.i("Error:", "getRelativeTimeAgo failed", e);
             e.printStackTrace();
         }
-
         return "";
     }
-
 }

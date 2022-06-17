@@ -40,6 +40,8 @@ import java.util.List;
 
 public class PostDetails extends AppCompatActivity {
 
+    public static final String TAG = "PostDetails";
+
     TextView tvCreatedAt;
     TextView tvUsername;
     TextView tvDescription;
@@ -54,7 +56,6 @@ public class PostDetails extends AppCompatActivity {
     ImageView ivProfile;
     protected List<Comment> allComments;
     private LinearLayoutManager llm;
-    public static final String TAG = "PostDetails";
     protected CommentsAdapter adapter;
 
 
@@ -74,18 +75,16 @@ public class PostDetails extends AppCompatActivity {
         rvComments=findViewById(R.id.rvComments);
         ivProfile=findViewById(R.id.ivProfile);
 
-
-
         liked = false;
         Post post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
-
         JSONArray postLikedBy = post.getLikedBy();
-
         ParseUser currentUser = post.getUser();
+
         if(currentUser.get("profilePic")!=null){
             ivProfile.setBackground(AppCompatResources.getDrawable(PostDetails.this, (Integer) currentUser.get("profilePic")));
         }
 
+        //checks if the logged-in user has liked the post
         if(postLikedBy!=null){
             for(int i = 0; i < postLikedBy.length(); i++){
                 try {
@@ -96,12 +95,10 @@ public class PostDetails extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }
+
         this.bind(post);
-
-
         allComments = new ArrayList<>();
         adapter = new CommentsAdapter(PostDetails.this, allComments);
         // set the adapter on the recycler view
@@ -114,13 +111,11 @@ public class PostDetails extends AppCompatActivity {
         queryComments((ParseObject) post);
 
         ivProfile.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(PostDetails.this, ProfileActivity.class);
                 i.putExtra(ParseUser.class.getSimpleName(), Parcels.wrap(post.getUser()));
                 i.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
-
                 startActivity(i);
             }
         });
@@ -131,7 +126,6 @@ public class PostDetails extends AppCompatActivity {
                 Intent i = new Intent(PostDetails.this, ProfileActivity.class);
                 i.putExtra(ParseUser.class.getSimpleName(), Parcels.wrap(post.getUser()));
                 i.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
-
                 startActivity(i);
             }
         });
@@ -141,7 +135,6 @@ public class PostDetails extends AppCompatActivity {
             public void onClick(View v) {
                 String commentText = etComment.getText().toString();
                 ParseUser currentUser = ParseUser.getCurrentUser();
-
                 addComment(commentText,  (ParseObject) post, currentUser);
             }
         });
@@ -154,7 +147,6 @@ public class PostDetails extends AppCompatActivity {
                     if (liked){
                         newBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart);
                         liked=false;
-
                         JSONArray postLikedBy = post.getLikedBy();
                         JSONArray newArray = new JSONArray();
 
@@ -168,11 +160,9 @@ public class PostDetails extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
                             }
                         }
                         post.put("likedBy", newArray);
-
                     } else {
                         newBackground = AppCompatResources.getDrawable(PostDetails.this, R.drawable.ufi_heart_active);
                         liked = true;
@@ -187,8 +177,6 @@ public class PostDetails extends AppCompatActivity {
                 btnLikes.setBackground(newBackground);
             }
         });
-
-
     }
 
     private void queryComments(ParseObject post) {
@@ -196,31 +184,23 @@ public class PostDetails extends AppCompatActivity {
 
         query.include(Comment.KEY_POST_PARENT);
         query.include(Comment.KEY_COMMENTER);
-
         query.whereEqualTo(Comment.KEY_POST_PARENT, post);
-        // limit query to latest 20 items
         query.setLimit(20);
-        // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
+
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Comment>() {
             @Override
             public void done(List<Comment> comments, ParseException e) {
                 // check for errors
                 if (e != null) {
-                    Log.e(TAG, "Issue with getting comments", e);
                     return;
                 }
-
-                // save received posts to list and notify adapter of new data
                 adapter.addAll(comments);
                 adapter.notifyDataSetChanged();
-
             }
         });
-
     }
-
 
     private void addComment(String commentText, ParseObject post, ParseUser currentUser) {
         Comment comment = new Comment();
@@ -231,10 +211,8 @@ public class PostDetails extends AppCompatActivity {
             @Override
             public void done(ParseException e) {
                 if (e != null){
-                    Log.e(TAG, "Error while saving", e);
                     Toast.makeText(PostDetails.this, "Error while saving", Toast.LENGTH_SHORT).show();
                 }
-                Log.i(TAG, "Comment save was successful!");
                 etComment.setText("");
                 adapter.clear();
                 queryComments(post);

@@ -36,12 +36,11 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static final String TAG = "HomeFragment";
 
     private String mParam1;
     private String mParam2;
-
     private SwipeRefreshLayout swipeContainer;
-    public static final String TAG = "HomeFragment";
     private RecyclerView rvPosts;
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
@@ -72,8 +71,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
@@ -130,35 +128,29 @@ public class HomeFragment extends Fragment {
     }
 
     private void queryPosts(){
-
         pb.setVisibility(ProgressBar.VISIBLE);
 
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+
         // include data referred by user key
         query.include(Post.KEY_USER);
-
-        // limit query to latest 20 items
         query.setLimit(20);
-        // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
+
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
-                // check for errors
                 if (e != null) {
-                    Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
                 // save received posts to list and notify adapter of new data
                 adapter.addAll(posts);
                 adapter.notifyDataSetChanged();
-
             }
         });
         pb.setVisibility(ProgressBar.INVISIBLE);
-
     }
 
 
@@ -166,35 +158,24 @@ public class HomeFragment extends Fragment {
     private void queryPosts(Date createdAt) {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+
         // include data referred by user key
         query.include(Post.KEY_USER);
-
         query.whereLessThan("createdAt", createdAt);
-        // limit query to latest 20 items
         query.setLimit(20);
-        // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
+
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
-                // check for errors
                 if (e != null) {
-                    Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-
-                // for debugging purposes let's print every post description to logcat
-                for (Post post : posts) {
-                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
-                }
-
                 // save received posts to list and notify adapter of new data
                 adapter.addAll(posts);
                 adapter.notifyDataSetChanged();
-
             }
         });
     }
-
 }

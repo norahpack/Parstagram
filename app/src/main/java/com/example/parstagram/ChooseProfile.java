@@ -56,30 +56,30 @@ public class ChooseProfile extends AppCompatActivity {
 
         choiceList=findViewById(R.id.choiceList);
         btnUpdate=findViewById(R.id.btnUpdate);
+
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int idChecked = choiceList.getCheckedRadioButtonId();
                 finalChoice=findViewById(idChecked);
-                System.out.println(finalChoice);
-                System.out.println(finalChoice.getTag());
                 int choiceImage = (int) finalChoice.getTag();
                 ParseUser currentUser = ParseUser.getCurrentUser();
-
                 currentUser.put("profilePic", choiceImage);
 
                 currentUser.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e != null){
+                            return;
                         }
+
+                        //goes back to the FeedActivity class with the profile fragment pulled up
                         Intent i = new Intent(ChooseProfile.this, FeedActivity.class);
                         i.putExtra("goTo", "profile");
                         startActivity(i);
                         finish();
                     }
                 });
-
             }
         });
     }
