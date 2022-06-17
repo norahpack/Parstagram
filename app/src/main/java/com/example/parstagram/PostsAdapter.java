@@ -87,14 +87,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         public void bind(Post post) {
 
             ParseUser currentUser = post.getUser();
-            System.out.println(currentUser.get("profilePic"));
             if(currentUser.get("profilePic")!=null){
-                System.out.println("GOT HERE");
                 ivProfile.setBackground(AppCompatResources.getDrawable(context, (Integer) currentUser.get("profilePic")));
             } else {
                 ivProfile.setBackground(AppCompatResources.getDrawable(context, R.drawable.instagramtwo));
             }
-
 
             //Bind the post data to the view elements
             tvDescription.setText(post.getDescription());
@@ -118,13 +115,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                         }).into(ivImage);
 
             } else {
-
                 Glide.with(context).load(R.drawable.icon).into(ivImage);
                 pbLoading.setVisibility(ProgressBar.INVISIBLE);
-
             }
-
-
         }
 
         @Override
@@ -137,6 +130,5 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 context.startActivity(intent);
             }
         }
-
     }
 }

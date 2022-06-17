@@ -70,16 +70,14 @@ public class ProfileActivity extends AppCompatActivity {
     private void queryGrid(ParseUser user){
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        // include data referred by user key
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_USER, user);
-        // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
+
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
-                // check for errors
                 if (e != null) {
                     return;
                 }
@@ -91,11 +89,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void back(View view){
-
         Intent i = new Intent(ProfileActivity.this, PostDetails.class);
         i.putExtra(Post.class.getSimpleName(), Parcels.wrap(lastPost));
         startActivity(i);
         finish();
     }
-
 }

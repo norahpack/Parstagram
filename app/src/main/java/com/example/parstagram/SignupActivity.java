@@ -33,17 +33,14 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-
         etUsername=findViewById(R.id.etUsername);
         etPassword=findViewById(R.id.etPassword);
         btnCreate=findViewById(R.id.btnCreate);
-
 
         btnCreate.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "onClick signup button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 if(username.isEmpty()){
@@ -63,20 +60,17 @@ public class SignupActivity extends AppCompatActivity {
                     @Override
                     public void done(ParseUser user, ParseException e) {
                         if (e != null){
-                            Log.e(TAG, "Issue with login", e);
                             Toast.makeText(SignupActivity.this, "Issue with login!", Toast.LENGTH_SHORT);
-
                             return;
                         }
                         Intent i = new Intent(SignupActivity.this, FeedActivity.class);
                         startActivity(i);
                         finish();
-                        Toast.makeText(SignupActivity.this, "Success!", Toast.LENGTH_SHORT);
+                        Toast.makeText(SignupActivity.this, "Logged in!", Toast.LENGTH_SHORT);
                     }
                 });
             }
         });
-
     }
 
     private void newUser(String username, String password) throws ParseException {
@@ -85,19 +79,15 @@ public class SignupActivity extends AppCompatActivity {
         user.setPassword(password);
         user.signUp();
 
-
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e != null){
-                    Log.e(TAG, "Error while saving", e);
                     Toast.makeText(SignupActivity.this, "Error creating account", Toast.LENGTH_SHORT).show();
                 }
-                Log.i(TAG, "Account Creation was successful!");
                 etUsername.setText("");
                 etPassword.setText("");
             }
         });
     }
-
 }
